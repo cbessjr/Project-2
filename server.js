@@ -37,14 +37,21 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
+var syncOptions = {
+  force: false
+};
+
+// If running a test, set syncOptions.force to true
+// clearing the `testdb`
+if (process.env.NODE_ENV === "test") {
+  syncOptions.force = true;
+}
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
-db.sequelize
-  .sync({
-    force: true
-  })
-  .then(function() {
-    app.listen(PORT, function() {
-      console.log("App listening on http://localhost:" + PORT);
-    });
+db.sequelize.sync(syncOptions).then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on http://localhost:" + PORT);
   });
+});
+
+module.exports = app;

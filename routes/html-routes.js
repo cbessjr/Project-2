@@ -3,9 +3,7 @@ var db = require("../models");
 module.exports = function(app) {
   //GET Route to root page
   app.get("/", function(req, res) {
-    db.Reports.findAll({
-      include: [db.Users]
-    }).then(function(dbData) {
+    db.Reports.findAll({}).then(function(dbData) {
       res.render("index", {
         msg: "Welcome!",
         reports: dbData
@@ -19,23 +17,21 @@ module.exports = function(app) {
 
   //GET Route to display submit new report page
   app.get("/reports/new", function(req, res) {
-    db.Reports.findAll({
-      include: [db.Users]
-    }).then(function(dbData) {
+    db.Reports.findAll({}).then(function(dbData) {
       res.render("new-report", {
         reports: dbData
       });
     });
   });
+
   //GET Route to search by state
   app.get("/search/state/:state", function(req, res) {
     db.Reports.findAll({
       where: {
         state: req.params.state
-      },
-      include: [db.Users]
+      }
     }).then(function(dbData) {
-      res.render("sort-state", {
+      res.render("search-state", {
         reports: dbData
       });
     });
@@ -45,12 +41,11 @@ module.exports = function(app) {
   app.get("/search/city/:city", function(req, res) {
     db.Reports.findAll({
       where: {
-        city: req.params.state
-      },
-      include: [db.User]
+        city: req.params.city
+      }
     }).then(function(dbData) {
-      res.render("sort-city", {
-        reports: dbData
+      res.render("search-city", {
+        report: dbData
       });
     });
   });

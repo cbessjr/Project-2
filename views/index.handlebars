@@ -32,12 +32,11 @@
         <h3>Reports:</h3>
         <ul id="example-list" class="list-group">
           {{#each reports}}
-          <li>Type: {{this.city}}</li>
-          <li>Description: {{this.description}}</li>
-          <li>Location: {{this.state}}</li>
           <li>Type: {{this.type}}</li>
           <li>Description: {{this.description}}</li>
           <li>Location: {{this.location}}</li>
+          <li>City: {{this.city}}</li>
+          <li>State: {{this.state}}</li>
           <hr>
           {{/each}}
         </ul>

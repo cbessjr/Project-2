@@ -9,17 +9,7 @@ var db = require("../models");
 module.exports = function(app) {
   // GET route for getting all of the reports
   app.get("/api/reports", function(req, res) {
-    var query = {};
-    if (req.query.userName) {
-      query.AuthorId = req.query.userName;
-    }
-    // Here we add an "include" property to our options in our findAll query
-    // We set the value to an array of the models we want to include in a left outer join
-    // In this case, just db.Author
-    db.Reports.findAll({
-      where: query,
-      include: [db.Author]
-    }).then(function(dbData) {
+    db.Reports.findAll({}).then(function(dbData) {
       res.json(dbData);
     });
   });
@@ -32,8 +22,7 @@ module.exports = function(app) {
     db.Reports.findOne({
       where: {
         id: req.params.id
-      },
-      include: [db.Author]
+      }
     }).then(function(dbData) {
       res.json(dbData);
     });
