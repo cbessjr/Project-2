@@ -44,6 +44,16 @@ var handleReportSubmit = function(event) {
       .toLowerCase()
   };
 
+  if (
+    !data.type ||
+    !data.description ||
+    !data.location ||
+    !data.city ||
+    !data.state
+  ) {
+    return alert("Please fill out all fields before submitting");
+  }
+
   API.submitReport(data).then(function() {
     console.log(data);
     location.reload();
